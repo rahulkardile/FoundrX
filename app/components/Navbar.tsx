@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+import { auth, signIn } from '@/auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import AuthButtons from './AuthButtins' // Move signIn/signOut to a client component
@@ -29,7 +29,14 @@ const Navbar = async () => {
               </Link>
             </>
           ) : (
-            <AuthButtons isLoggedIn={false} />
+            <form
+              action={async () => {
+                "use server"
+                await signIn("github")
+              }}
+    >
+      <button type="submit">Signin with GitHub</button>
+    </form>
           )}
         </div>
       </nav>
